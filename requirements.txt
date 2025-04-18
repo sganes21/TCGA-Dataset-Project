@@ -1,0 +1,5 @@
+scikit-learn==1.2.2
+torch==2.2.0 --index-url https://download.pytorch.org/whl/cpu
+numpy==1.26.4
+pandas==2.0.3
+optuna==4.2.1

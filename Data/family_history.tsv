@@ -1,0 +1,17 @@
+project.project_id	cases.case_id	cases.submitter_id	family_histories.family_history_id	family_histories.relationship_age_at_diagnosis	family_histories.relationship_gender	family_histories.relationship_primary_diagnosis	family_histories.relationship_type	family_histories.relative_deceased	family_histories.relative_smoker	family_histories.relative_with_cancer_history	family_histories.relatives_with_cancer_history_count	family_histories.submitter_id
+VAREPOP-APOLLO	02b81d5d-4e66-4c66-9b13-8639b25f970c	AP-6M60	'--	'--	female	Pancreas Cancer	Grandmother	'--	'--	yes	'--	'--
+VAREPOP-APOLLO	02b81d5d-4e66-4c66-9b13-8639b25f970c	AP-6M60	'--	'--	female	Lymphoma	Mother	'--	'--	yes	'--	'--
+VAREPOP-APOLLO	02b81d5d-4e66-4c66-9b13-8639b25f970c	AP-6M60	'--	'--	female	Breast Cancer	Aunt	'--	'--	yes	'--	'--
+HCMI-CMDC	098d387f-beb5-48e2-ad69-537db301dff4	HCM-WCMC-0789-C34	'--	'--	'--	Cancer	First Degree Relative, NOS	'--	'--	yes	'--	'--
+VAREPOP-APOLLO	2e42e3ce-d89f-4df7-aefe-2becdb333b98	AP-97PG	'--	'--	'--	'--	'--	'--	'--	no	'--	'--
+HCMI-CMDC	3b013c00-dfc1-451e-aacc-be734f4b1c00	HCM-CSHL-0058-C34	'--	'--	'--	Lung Cancer	First Degree Relative, NOS	'--	'--	yes	'--	'--
+HCMI-CMDC	56c07b06-c6d3-4c03-9e57-7be636e7cc5c	HCM-BROD-0027-C34	'--	'--	'--	Cancer	First Degree Relative, NOS	'--	'--	yes	'--	'--
+VAREPOP-APOLLO	60ed7be9-923c-4bd3-a9c1-04c571e71155	AP-CL9I	'--	'--	'--	'--	'--	'--	'--	no	'--	'--
+VAREPOP-APOLLO	76baac42-666a-47c5-8682-02b73cf6c981	AP-9GTR	'--	'--	male	Lung Cancer	Father	'--	'--	yes	'--	'--
+VAREPOP-APOLLO	76baac42-666a-47c5-8682-02b73cf6c981	AP-9GTR	'--	'--	female	Lung Cancer	Sibling	'--	'--	yes	'--	'--
+HCMI-CMDC	c14d7245-1a9c-45cf-b284-8f49c3fe2ec9	HCM-WCMC-0749-C34	'--	'--	'--	Cancer	First Degree Relative, NOS	'--	'--	yes	'--	'--
+VAREPOP-APOLLO	c1a71467-94f8-40b4-ac4d-fc783c4b4df2	AP-6H6G	'--	'--	'--	'--	'--	'--	'--	yes	'--	'--
+VAREPOP-APOLLO	d23ff1df-c6a5-483b-a0c3-b2202c0508c6	AP-DRVN	'--	'--	'--	'--	'--	'--	'--	yes	'--	'--
+HCMI-CMDC	dd88a8a4-517b-40ad-a4f3-201e20875cfe	HCM-BROD-0449-C34	'--	'--	'--	Cancer	First Degree Relative, NOS	'--	'--	yes	'--	'--
+HCMI-CMDC	e506251d-4072-4479-b2ce-5c75387dc7fc	HCM-BROD-0007-C49	'--	'--	'--	Cancer	First Degree Relative, NOS	'--	'--	yes	'--	'--
+VAREPOP-APOLLO	fac714b8-b637-4c6c-b3e5-c7e9f0d2dc7b	AP-95DK	'--	'--	'--	'--	'--	'--	'--	no	'--	'--
