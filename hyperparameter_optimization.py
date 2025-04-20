@@ -7,6 +7,11 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
+from sklearn.exceptions import UndefinedMetricWarning
+import warnings
+
+# Suppress UndefinedMetricWarning
+warnings.filterwarnings('ignore', category= UndefinedMetricWarning)
 import numpy as np
 
 def optimize_random_forest(trial, features_df, target):
@@ -19,13 +24,14 @@ def optimize_random_forest(trial, features_df, target):
         target(pd.Series): Target variable.
 
     Returns:
-        mean_score(float): Mean AUROC score across K-Fold cross-validation.
+        mean_score(float): Precision weighted score across K-Fold cross-validation.
     '''
     # Hyperparameter ranges for optimization
     n_estimators = trial.suggest_int('n_estimators', 20, 300)
     max_depth = trial.suggest_int('max_depth', 1, 30)
     min_samples_split = trial.suggest_int('min_samples_split', 2, 20)
-    min_samples_leaf = trial.suggest_int('min_samples_leaf', 2, 20)
+    min_samples_leaf = trial.suggest_int('min_samples_leaf', 5, 20)
+    class_weights = trial.suggest_categorical('class_weight',  ['balanced', 'balanced_subsample', None]) 
 
     # Initialize K-Fold cross-validation
     kf = KFold(n_splits=5, shuffle=True, random_state=0)
@@ -36,7 +42,7 @@ def optimize_random_forest(trial, features_df, target):
 
     # Preprocessing for numeric features
     numeric_transformer = Pipeline(steps=[
-        ('imputer', SimpleImputer(strategy='mean'))  # Impute missing values with mean for numeric data
+        ('imputer', SimpleImputer(strategy='median'))  # Impute missing values with mean for numeric data
     ])
 
     # Preprocessing for non-numeric features
@@ -54,11 +60,11 @@ def optimize_random_forest(trial, features_df, target):
     )
 
     pipeline = Pipeline([ ('preprocessor', preprocessor),
-        ('rf', RandomForestClassifier(n_estimators=n_estimators, max_depth=max_depth,min_samples_split=min_samples_split,min_samples_leaf=min_samples_leaf, random_state=0))
+        ('rf', RandomForestClassifier(n_estimators=n_estimators, max_depth=max_depth,min_samples_split=min_samples_split,min_samples_leaf=min_samples_leaf, class_weight=class_weights, random_state=0))
     ])
 
-    # Perform cross-validation and calculate mean AUROC score
-    scores = cross_val_score(pipeline, features_df, target, cv=kf, scoring='roc_auc')
+    # Perform cross-validation and calculate precision weighted score
+    scores = cross_val_score(pipeline, features_df, target, cv=kf, scoring='precision_weighted', n_jobs=-1)
 
     return np.mean(scores)
    
