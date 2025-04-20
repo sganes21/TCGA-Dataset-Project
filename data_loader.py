@@ -3,6 +3,19 @@ from torch.utils.data import DataLoader, WeightedRandomSampler
 
 def load_data(y_train_res, train_dataset, val_dataset, test_dataset):
     """
+    
+
+    Inputs:
+        y_train_res: Upsampled labelled dataset
+        train_dataset:
+        val_dataset:
+        test_dataset: 
+
+    Returns:
+        train_loader: 
+        val_loader:
+        test_loader:
+        class_weights 
     """
     class_counts = np.bincount(y_train_res)
     class_weights = 1. / class_counts

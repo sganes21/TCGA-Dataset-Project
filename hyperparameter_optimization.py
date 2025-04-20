@@ -24,7 +24,7 @@ def optimize_random_forest(trial, features_df, target):
         target(pd.Series): Target variable.
 
     Returns:
-        mean_score(float): Precision weighted score across K-Fold cross-validation.
+        median_score(float): Precision weighted score across K-Fold cross-validation.
     '''
     # Hyperparameter ranges for optimization
     n_estimators = trial.suggest_int('n_estimators', 20, 300)

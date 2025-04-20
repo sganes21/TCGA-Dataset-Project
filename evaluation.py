@@ -66,14 +66,20 @@ val_preds = model.predict(X_val)
 print("Validation Results:")
 print(f"Precision: {precision_score(y_val, val_preds, average='weighted', zero_division=0):.4f}")
 print(f"Recall: {recall_score(y_val, val_preds, average='weighted', zero_division=0):.4f}")
-print(classification_report(y_val, val_preds, zero_division=0))
+report_random_forest_validation = classification_report(y_val, val_preds, zero_division=0)
+print(report_random_forest_validation)
+with open("classification_report_val_ml.txt", "w") as f:
+    f.write(report_random_forest_validation)
 
 # Test Evaluation
 test_preds = model.predict(X_test)
 print("\nTest Results:")
 print(f"Precision: {precision_score(y_test, test_preds, average='weighted', zero_division=0):.4f}")
 print(f"Recall: {recall_score(y_test, test_preds, average='weighted', zero_division=0):.4f}")
-print(classification_report(y_test, test_preds, zero_division=0))
+report_random_forest = classification_report(y_test, test_preds, zero_division=0)
+print(report_random_forest)
+with open("classification_report_test_ml.txt", "w") as f:
+    f.write(report_random_forest)
 
 
 # Generate confusion matrix
@@ -84,12 +90,13 @@ cm_df = pd.DataFrame(cm, index=classes, columns=classes)
 # Plot confusion matrix
 plt.figure(figsize=(12, 10))
 sns.heatmap(cm_df, annot=True, fmt='d', cmap='Blues', cbar=False)
-plt.title('Confusion Matrix - Validation Set')
+plt.title('Confusion Matrix - Validation Set - Traditional ML Model')
 plt.xlabel('Predicted Label')
 plt.ylabel('True Label')
 plt.xticks(rotation=45)
 plt.yticks(rotation=0)
-plt.show()
+plt.savefig('confusion_matrix_validation_ml.png', bbox_inches='tight', dpi=300)
+
 
 ## Neural Net Pipeline
 print("\nCommencing Neural Net Pipeline:")
@@ -114,9 +121,16 @@ trained_model.load_state_dict(torch.load('best_model.pth'))
 
 # Print results
 print("Validation Results:")
-print(evaluate(trained_model, val_loader))
+report_deep_learning_validation=evaluate(trained_model, val_loader)
+print(report_deep_learning_validation)
+with open("classification_report_val_deep_learning.txt", "w") as f:
+    f.write(report_deep_learning_validation)
+      
 
 print("\nTest Results:")
-print(evaluate(trained_model, test_loader))
+report_deep_learning=evaluate(trained_model, test_loader)
+print(report_deep_learning)
+with open("classification_report_test_deep_learning.txt", "w") as f:
+    f.write(report_deep_learning)
 
 
