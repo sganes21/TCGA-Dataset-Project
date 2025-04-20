@@ -1,0 +1,12 @@
+                                       precision    recall  f1-score   support
+
+                Acinar Cell Neoplasms       0.01      0.20      0.02         5
+         Adenomas and Adenocarcinomas       1.00      0.21      0.35       607
+         Complex Epithelial Neoplasms       0.01      0.80      0.02         5
+Cystic, Mucinous and Serous Neoplasms       0.02      0.40      0.04         5
+            Epithelial Neoplasms, NOS       0.97      0.96      0.96       151
+              Squamous Cell Neoplasms       0.84      0.40      0.54       221
+
+                             accuracy                           0.37       994
+                            macro avg       0.47      0.50      0.32       994
+                         weighted avg       0.94      0.37      0.48       994
