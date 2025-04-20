@@ -8,7 +8,7 @@ from random_forest_model_train import train_random_forest
 from data_preprocessor import data_processing
 from data_loader import load_data
 from deep_learning import create_clinical_neuralnet
-from deep_learning_training import train_model, evaluate 
+from deep_learning_training import train_model, evaluate, extract_matrix_labels
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import precision_score, recall_score, classification_report
 from sklearn.exceptions import UndefinedMetricWarning
@@ -68,7 +68,7 @@ print(f"Precision: {precision_score(y_val, val_preds, average='weighted', zero_d
 print(f"Recall: {recall_score(y_val, val_preds, average='weighted', zero_division=0):.4f}")
 report_random_forest_validation = classification_report(y_val, val_preds, zero_division=0)
 print(report_random_forest_validation)
-with open("classification_report_val_ml.txt", "w") as f:
+with open("Analysis/classification_report_val_ml.txt", "w") as f:
     f.write(report_random_forest_validation)
 
 # Test Evaluation
@@ -78,7 +78,7 @@ print(f"Precision: {precision_score(y_test, test_preds, average='weighted', zero
 print(f"Recall: {recall_score(y_test, test_preds, average='weighted', zero_division=0):.4f}")
 report_random_forest = classification_report(y_test, test_preds, zero_division=0)
 print(report_random_forest)
-with open("classification_report_test_ml.txt", "w") as f:
+with open("Analysis/classification_report_test_ml.txt", "w") as f:
     f.write(report_random_forest)
 
 
@@ -95,7 +95,7 @@ plt.xlabel('Predicted Label')
 plt.ylabel('True Label')
 plt.xticks(rotation=45)
 plt.yticks(rotation=0)
-plt.savefig('confusion_matrix_validation_ml.png', bbox_inches='tight', dpi=300)
+plt.savefig('Analysis/confusion_matrix_validation_ml.png', bbox_inches='tight', dpi=300)
 
 
 ## Neural Net Pipeline
@@ -123,14 +123,31 @@ trained_model.load_state_dict(torch.load('best_model.pth'))
 print("Validation Results:")
 report_deep_learning_validation=evaluate(trained_model, val_loader)
 print(report_deep_learning_validation)
-with open("classification_report_val_deep_learning.txt", "w") as f:
+with open("Analysis/classification_report_val_deep_learning.txt", "w") as f:
     f.write(report_deep_learning_validation)
+
+# Compute confusion matrix
+all_preds, all_labels = extract_matrix_labels(trained_model, val_loader)
+cmval = confusion_matrix(all_preds, all_labels)
+classes_dl = y_val.unique()
+cmval_df = pd.DataFrame(cmval, index=classes_dl, columns=classes_dl)
+
+# Plot confusion matrix
+plt.figure(figsize=(12, 10))
+sns.heatmap(cmval_df, annot=True, fmt='d', cmap='Blues', cbar=False)
+plt.title('Confusion Matrix - Validation Set - Deep Learning Model Model')
+plt.xlabel('Predicted Label')
+plt.ylabel('True Label')
+plt.xticks(rotation=45)
+plt.yticks(rotation=0)
+plt.savefig('Analysis/confusion_matrix_validation_deep_learning.png', bbox_inches='tight', dpi=300)
+
       
 
 print("\nTest Results:")
 report_deep_learning=evaluate(trained_model, test_loader)
 print(report_deep_learning)
-with open("classification_report_test_deep_learning.txt", "w") as f:
+with open("Analysis/classification_report_test_deep_learning.txt", "w") as f:
     f.write(report_deep_learning)
 
 

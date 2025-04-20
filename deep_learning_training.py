@@ -1,6 +1,32 @@
 import torch
 from sklearn.metrics import classification_report
 
+
+def extract_matrix_labels(model, data_loader, device=None):
+    """
+    Extracts all predictions and true labels from a model and dataloader.
+    
+    Returns:
+        all_preds: list of predicted class indices
+        all_labels: list of true class indices
+    """
+    model.eval()
+    all_preds = []
+    all_labels = []
+    if device is None:
+        device = next(model.parameters()).device
+
+    with torch.no_grad():
+        for inputs, labels in data_loader:
+            inputs = inputs.to(device)
+            labels = labels.to(device)
+            outputs = model(inputs)
+            _, preds = torch.max(outputs, 1)
+            all_preds.extend(preds.cpu().numpy())
+            all_labels.extend(labels.cpu().numpy())
+    return all_preds, all_labels
+
+
 def evaluate(model, loader):
     model.eval()
     all_preds = []

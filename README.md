@@ -33,16 +33,19 @@ evaluation.py
 ## Evaluation
 
     # Figure 1 Confusion Matrix - Validation Set - Traditional ML Model
-![Figure 1](confusion_matrix_validation_ml.png)
+![Figure 1](Analysis/confusion_matrix_validation_ml.png)
 
     # Figure 2 Classification Report - Validation Set - Traditional ML Model
-![Figure 2](classification_report_val_ml.txt)
+![Figure 2](Analysis/classification_report_val_ml.txt)
 
     # Figure 3 Classification Report - Test Set - Traditional ML Model
-![Figure 3](classification_report_test_ml.txt)
+![Figure 3](Analysis/classification_report_test_ml.txt)
 
-    # Figure 4 Classification Report - Validation Set - Deep Learning Model
-![Figure 4](classification_report_val_deep_learning.txt)
+    # Figure 4 Classification Report - Test Set - Deep Learning Model
+![Figure 4](Analysis/confusion_matrix_validation_deep_learning.png)
 
-    # Figure 5 Classification Report - Test Set - Deep Learning Model
-![Figure 5](classification_report_test_deep_learning.txt)
+    # Figure 5 Classification Report - Validation Set - Deep Learning Model
+![Figure 5](Analysis/classification_report_val_deep_learning.txt)
+
+    # Figure 6 Classification Report - Test Set - Deep Learning Model
+![Figure 6](Analysis/classification_report_test_deep_learning.txt)
