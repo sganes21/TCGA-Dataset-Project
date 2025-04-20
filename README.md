@@ -30,6 +30,28 @@ evaluation.py
     Main script that loads data, executes scripts, outputs prediction and generates submission.csv.
     PLEASE NOTE: .csv Datasets needs to be present in active directory. 
 
+## Instructions to Run Script
+
+To set up the development environment: 
+
+For Windows:
+
+1) Activate Virtual Environment
+   ```
+   python  -m venv venv
+   .venv .venv/Scripts/activate 
+   ```
+    
+2) Install the requirements.txt file
+    ``` 
+    python -m pip install -r requirements.txt 
+    ```
+
+3) Execute Model Pipeline
+    ``` 
+    python evaluation.py 
+    ```
+
 ## Evaluation
 
     # Figure 1 Confusion Matrix - Validation Set - Traditional ML Model

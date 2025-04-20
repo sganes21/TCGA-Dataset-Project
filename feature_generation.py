@@ -4,9 +4,21 @@
 import numpy as np
 import pandas as pd
 
-# Handle missing/not reported values
+
 def clean_column(col):
-    # Convert "not reported" variants to NaN
+
+    '''
+    Function to clean columns of a clinical dataset.
+
+    Inputs:
+        col: input column from clinical dataset
+
+
+    Returns:
+        col: Column scrubbed of unknown values and changing columns to numeric type
+    '''
+
+    # Convert unknown values to NaN
     col = col.replace(['not reported', 'Not Reported', '--', ''], np.nan)
     
     # Convert numeric columns
@@ -18,9 +30,24 @@ def clean_column(col):
     return col
 
 def feature_extraction(data_df):
- 
+     
+    """
+    Extracts features for specified deintified patient information.
+
+    This function extracts a broad feature sets for a case id representing a deidentified study participant. 
+    The extracted features are used to to develop a model to generate 
+    predictions on which subjects will be diagnosed from a set of conditions.
+    Please note: Not all provided data is fed into the model.
+
+    Parameters:
+        data_df: Raw clinical dataset, were rows are sorted by unique case id
+
+
+    Returns:
+        clean_df: A list containing the extracted features for a case id.
+    """
         
-    # Initialize features dictionary
+    # Initialize features list
     
     features = [
     

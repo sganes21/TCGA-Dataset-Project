@@ -4,11 +4,15 @@ from sklearn.metrics import classification_report
 
 def extract_matrix_labels(model, data_loader, device=None):
     """
-    Extracts all predictions and true labels from a model and dataloader.
+    Extracts predictions and true labels from a model and dataloader that can be used to compute a confusion matrix.
+        
+    Inputs:
+        model: neural net model 
+        data loader: associated batch information from dataset
     
     Returns:
-        all_preds: list of predicted class indices
-        all_labels: list of true class indices
+        all_preds: list of predicted classes
+        all_labels: list of true classes
     """
     model.eval()
     all_preds = []
@@ -28,6 +32,17 @@ def extract_matrix_labels(model, data_loader, device=None):
 
 
 def evaluate(model, loader):
+    """
+    Extracts predictions and true labels from a model and dataloader that can be used to compute a confusion matrix for traditional algorithm.
+        
+    Inputs:
+        model: ml model 
+        data loader: associated batch information from dataset
+    
+    Returns:
+        all_preds: list of predicted classes
+        all_labels: list of true classes
+    """
     model.eval()
     all_preds = []
     all_labels = []
@@ -42,6 +57,23 @@ def evaluate(model, loader):
     return classification_report(all_labels, all_preds, zero_division=0)
 
 def train_model(model, train_loader, val_loader, optimizer, scheduler, criterion, num_epochs):
+    """
+    Extracts predictions and true labels from a model and dataloader that can be used to compute a confusion matrix for traditional algorithm.
+        
+    Inputs:
+        model: The neural network model to train.
+        train_loader: DataLoader for the training dataset.
+        val_loader: DataLoader for the validation dataset.
+        optimizer: Optimizer for updating model parameters.
+        scheduler: Learning rate scheduler
+        criterion: Loss function to optimize
+        num_epochs (int): Number of epochs to train the model
+    
+    Returns:
+        model: trained model with incorporated parameters.
+      
+    """
+        
     best_loss = float('inf')
     patience = 5
     counter = 0
@@ -51,7 +83,7 @@ def train_model(model, train_loader, val_loader, optimizer, scheduler, criterion
         model.train()
         for inputs, labels in train_loader:
             optimizer.zero_grad()
-            outputs = model(inputs)  # Direct forward pass
+            outputs = model(inputs) 
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()

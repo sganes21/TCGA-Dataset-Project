@@ -2,6 +2,20 @@ import torch.nn as nn
 
 
 def create_clinical_neuralnet(input_size, num_classes):
+
+    '''
+    Function that constructs a neural network for clinical dataset multi-class classification with:
+    two hidden layers (128 → 64 units), ReLU activation function, batch normalization, and regularization
+
+    Inputs:
+        input_size: int - # of input features 
+        num_classes: int - # of output classes for classification
+
+
+    Returns:
+        model: linear neural net from pytorch 
+    '''
+
     model= nn.Sequential(
         nn.Linear(input_size, 128),
         nn.ReLU(),

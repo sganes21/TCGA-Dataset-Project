@@ -42,6 +42,8 @@ final_df=features_df.dropna(subset=['cases.disease_type'])
 X = final_df.drop('cases.disease_type', axis=1)
 y = final_df['cases.disease_type']
 
+## Traditional Pipeline
+
 # Split into training and test datasets
 
 X_temp, X_test, y_temp, y_test = train_test_split(
@@ -87,7 +89,7 @@ cm = confusion_matrix(y_val, val_preds)
 classes = y_val.unique()
 cm_df = pd.DataFrame(cm, index=classes, columns=classes)
 
-# Plot confusion matrix
+# Plot confusion matrix and saving
 plt.figure(figsize=(12, 10))
 sns.heatmap(cm_df, annot=True, fmt='d', cmap='Blues', cbar=False)
 plt.title('Confusion Matrix - Validation Set - Traditional ML Model')
@@ -100,20 +102,27 @@ plt.savefig('Analysis/confusion_matrix_validation_ml.png', bbox_inches='tight', 
 
 ## Neural Net Pipeline
 print("\nCommencing Neural Net Pipeline:")
+
+# Entering data in pre-processing pipeline
 [X_train_res, y_train_res, train_dataset, val_dataset, test_dataset]=data_processing(X, y)
 
+# Setting up dataloaders for the training, validation, and test data
 [train_loader, val_loader, test_loader, class_weights]=load_data(y_train_res, train_dataset, val_dataset, test_dataset)
-
 input_size = X_train_res.shape[1]
 num_classes = len(np.unique(y))
+
+# Defining Deep Learning Model
 model = create_clinical_neuralnet(input_size, num_classes)
 num_epochs=100
 
+# Setting up class weights, scheduler, and optimizer.
 class_weights = torch.tensor(class_weights, dtype=torch.float)
 criterion = nn.CrossEntropyLoss(weight=class_weights)
 optimizer = optim.AdamW(model.parameters(), lr=0.001, weight_decay=1e-4)
 scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', patience=3)
 
+
+# Training the model with defined paramters.
 trained_model= train_model(model, train_loader, val_loader, optimizer, scheduler, criterion, num_epochs)
 
 # Load best model
@@ -132,7 +141,7 @@ cmval = confusion_matrix(all_preds, all_labels)
 classes_dl = y_val.unique()
 cmval_df = pd.DataFrame(cmval, index=classes_dl, columns=classes_dl)
 
-# Plot confusion matrix
+# Plot confusion matrix and saving
 plt.figure(figsize=(12, 10))
 sns.heatmap(cmval_df, annot=True, fmt='d', cmap='Blues', cbar=False)
 plt.title('Confusion Matrix - Validation Set - Deep Learning Model Model')
