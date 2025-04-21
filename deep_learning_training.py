@@ -58,7 +58,7 @@ def evaluate(model, loader):
 
 def train_model(model, train_loader, val_loader, optimizer, scheduler, criterion, num_epochs):
     """
-    Extracts predictions and true labels from a model and dataloader that can be used to compute a confusion matrix for traditional algorithm.
+    Function that takes in a model and set of parameters and returns a trained model. 
         
     Inputs:
         model: The neural network model to train.
