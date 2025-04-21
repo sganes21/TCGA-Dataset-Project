@@ -26,6 +26,17 @@ random_forest_model_train.py:
 hyperparameter_optimization.py:
     A function utlizing the Optuna library to optimize a Random Forest Classifier model.
 
+#### Model Optimization
+
+Hyperparameters tuned:
+
+n_estimators: Number of trees (20–300)
+max_depth: Tree depth limits (1–30)
+min_samples_split: Minimum samples to split nodes (2–20)
+min_samples_leaf: Minimum samples per leaf (5–20)
+
+The model contains class weight regularization to handle unbalanced datasets. Missing values are imputed with median. Non numeric features have one-hot encoding. Utilize the Optuna library for 100 trials to maximize the precision weighted score. The model shuffles and creates stratified splits (k=5) using cross fold validation. The model evaluates using precision weighted scoring to minimize false positives. Model training is parallelized for speed.  
+
 ### Deep Learning Pipeline (Linear NN)
 
 deep_learning.py: 
@@ -42,6 +53,15 @@ data_preprocessor.py:
 data_loader.py:
     A function that creates dataloaders for training, validation, and test sets, and computes class weights
     for handling class imbalance during training. Training utlizes WeightedRandomSampler to ensure equalized distribution of classes based on training labels. 
+
+#### Model Optimization
+
+3 layer (including input layer) Linear Neural Network with ReLu activation function. Contains batch normalization after each hidden layer. 
+
+SMOTE upsampling to handle imbalanced classes. WeightedRandomSampler to balance samples during training. 
+
+Early stopping and learning rate scheduler incorporated to prevent overfitting. CrossEntropy Loss function to balance out class imbalance. Non numeric features have one-hot encoding. Adam optimizer (combination of characteristics of Adagrad and RMS prop) employed.
+   
 ### Main Script
 
 evaluation.py
